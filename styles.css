@@ -693,7 +693,7 @@ body {
 }
 
 .forecast-day-col.active .forecast-day-name {
-   color: #090909;
+   color: var(--color-text-secondary);
 }
 
 .forecast-day-icon {
