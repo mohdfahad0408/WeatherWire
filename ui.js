@@ -45,7 +45,7 @@ function renderAppShell() {
           <div class="logo-icon-bg">
             ${getIcon("cloud")}
           </div>
-          <span class="logo-text-weather">Weather</span><span class="logo-text-news">News</span>
+          <span class="logo-text-weather">Weather</span><span class="logo-text-news">Wire</span>
         </a>
         <ul class="nav-links">
           <li><button class="nav-link-btn">Dashboard</button></li>
