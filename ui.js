@@ -559,7 +559,7 @@ function drawSavedCities(savedCities, activeWeather) {
           <span>${conditionStr}</span>
         </div>
         <button class="saved-city-delete-btn" title="Remove city" data-name="${city.name}" data-country="${city.country}">
-          ${getIcon("plus")} <!-- rotated icon in CSS serves as delete cross -->
+          ${getIcon("remove")} <!-- rotated icon in CSS serves as delete cross -->
         </button>
       </div>
     `;
