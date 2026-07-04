@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherNews</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body style="font-family: system-ui, sans-serif;">
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+            </div>
+            <div class="wordmark">
+                <span class="text-white">Weather</span><span class="text-accent">News</span>
+            </div>
+        </div>
+        
+        <div class="nav-center">
+            <button class="nav-tab">Dashboard</button>
+            <button class="nav-tab">Weather</button>
+            <button class="nav-tab active">News</button>
+        </div>
+
+        <div class="nav-right">
+            <button class="icon-btn saved-btn" id="saved-articles-btn" aria-label="Saved Articles">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+            </button>
+            <button class="icon-btn theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main style="padding: 2rem;">
+        <section id="weather-section" style="margin-bottom: 2.5rem;">
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                <div class="search-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <input type="text" id="location-input" placeholder="Enter city or location..." aria-label="Enter city or location">
+                </div>
+                <button id="location-submit" class="filter-btn active">Search</button>
+            </div>
+        </section>
+
+        <section id="news-section">
+        <!-- News Header Row -->
+        <header class="news-header">
+            <div class="news-header-titles">
+                <h2>News Feed</h2>
+                <div class="news-meta">
+                    <span id="article-count">0 articles</span>
+                    <span class="meta-separator">&bull;</span>
+                    <span id="last-updated">Updated just now</span>
+                    <span id="debug-badge" style="display: none; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; color: white;"></span>
+                </div>
+            </div>
+            
+            <div class="news-header-actions">
+                <div class="search-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="search" id="news-search" placeholder="Search news..." aria-label="Search news">
+                </div>
+                <div class="sort-container">
+                    <select id="news-sort" aria-label="Sort news">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="popular">Popular</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <!-- Category Filters -->
+        <nav class="category-filters">
+            <button class="filter-btn active" data-category="All">All</button>
+            <button class="filter-btn" data-category="Technology">Technology</button>
+            <button class="filter-btn" data-category="World">World</button>
+            <button class="filter-btn" data-category="Science">Science</button>
+            <button class="filter-btn" data-category="Business">Business</button>
+            <button class="filter-btn" data-category="Health">Health</button>
+            <button class="filter-btn" data-category="Sports">Sports</button>
+            <button class="filter-btn" data-category="Entertainment">Entertainment</button>
+        </nav>
+
+        <!-- News Grid -->
+        <div id="news-grid">
+            <!-- Article cards will be injected by JS -->
+            <article class="news-card" tabindex="0">
+                <div class="card-image-container">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="New AI Processor Promises 10x Performance Boost for Edge Devices" />
+                    <span class="card-badge badge-technology">Technology</span>
+                    <button class="card-bookmark" aria-label="Bookmark article: New AI Processor Promises 10x Performance Boost for Edge Devices">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">New AI Processor Promises 10x Performance Boost for Edge Devices</h3>
+                    <p class="card-description">Leading chip manufacturers have unveiled a revolutionary new architecture that dramatically reduces power consumption while providing unprecedented processing capabilities for local AI models.</p>
+                    <div class="card-footer">
+                        <div class="card-source-time">
+                            <span class="card-source">TechCrunch</span>
+                            <span>&bull;</span>
+                            <span class="card-time">2h ago</span>
+                        </div>
+                        <a href="#" class="card-link">Read <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="news-card" tabindex="0">
+                <div class="card-image-container">
+                    <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Astronomers Discover Potentially Habitable Exoplanet in Nearby System" />
+                    <span class="card-badge badge-science">Science</span>
+                    <button class="card-bookmark" aria-label="Bookmark article: Astronomers Discover Potentially Habitable Exoplanet in Nearby System">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Astronomers Discover Potentially Habitable Exoplanet in Nearby System</h3>
+                    <p class="card-description">Using the James Webb Space Telescope, researchers have identified water vapor signatures in the atmosphere of K2-18b, a super-Earth located just 120 light-years away in the Leo constellation.</p>
+                    <div class="card-footer">
+                        <div class="card-source-time">
+                            <span class="card-source">Space.com</span>
+                            <span>&bull;</span>
+                            <span class="card-time">5h ago</span>
+                        </div>
+                        <a href="#" class="card-link">Read <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Scripts linked with defer -->
+    <script type="module" src="./js/ui.js"></script>
+    <script type="module" src="./js/news.js"></script>
+    <script type="module" src="./js/weather.js"></script>
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>
