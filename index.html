@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherWire News</title>
+    <!-- Google Fonts for premium design aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body style="font-family: var(--font-sans), sans-serif;">
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+            </div>
+            <div class="wordmark">
+                <span class="text-white">Weather</span><span class="text-accent">Wire</span>
+            </div>
+        </div>
+        
+        <div class="nav-center">
+            <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-tab" data-tab="weather">Weather</button>
+            <button class="nav-tab" data-tab="news">News</button>
+        </div>
+
+        <div class="nav-right">
+            <button class="icon-btn temp-toggle" id="temp-toggle-btn" aria-label="Toggle Temperature Unit" style="font-weight: 700; font-family: var(--font-sans); font-size: 13px; margin-right: 0.25rem;">°C</button>
+            <button class="icon-btn saved-btn" id="saved-articles-btn" aria-label="Saved Articles">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+            </button>
+            <button class="icon-btn theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main style="padding: 2rem; max-width: 1440px; margin: 0 auto; width: 100%; box-sizing: border-box;">
+        
+        <!-- 1. INTEGRATED DASHBOARD VIEW -->
+        <section id="dashboard-view" class="tab-content active">
+            <div class="dashboard-view-grid">
+                <!-- Left: Weather widget and upcoming 3-day forecast -->
+                <div class="dashboard-weather-column">
+                    <div class="weather-search-container" style="margin-bottom: 1.5rem;">
+                        <div class="weather-search-bar-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="weather-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="dashboard-city-search-input" class="weather-search-input" placeholder="Search city weather & news..." autocomplete="off">
+                        </div>
+                        <div id="dashboard-search-results-dropdown" class="search-results-dropdown"></div>
+                    </div>
+                    <div id="dashboard-weather-widget">
+                        <!-- Loaded dynamically via js/app.js -->
+                    </div>
+                </div>
+
+                <!-- Right: Localized / Global News feed -->
+                <div class="dashboard-news-column">
+                    <header class="news-header">
+                        <div class="news-header-titles">
+                            <h2>Local & Trending News</h2>
+                            <div class="news-meta">
+                                <span id="dashboard-article-count">0 articles</span>
+                                <span class="meta-separator">&bull;</span>
+                                <span id="dashboard-debug-badge" style="display: none; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: white;"></span>
+                            </div>
+                        </div>
+                    </header>
+                    <div id="dashboard-news-grid" class="news-grid">
+                        <!-- Loaded dynamically via js/app.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DETAILED WEATHER WIRE VIEW -->
+        <section id="weather-view" class="tab-content">
+            <div class="weather-search-container" style="margin-bottom: 2rem;">
+                <div class="weather-search-bar-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="weather-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="city-search-input" class="weather-search-input" placeholder="Search any city worldwide..." autocomplete="off">
+                </div>
+                <div id="search-results-dropdown" class="search-results-dropdown"></div>
+            </div>
+            <div id="weather-dashboard-content">
+                <!-- Loaded dynamically via js/weatherUi.js -->
+            </div>
+        </section>
+
+        <!-- 3. COMPREHENSIVE STANDALONE NEWS VIEW -->
+        <section id="news-view" class="tab-content">
+            <!-- News Header Row -->
+            <header class="news-header">
+                <div class="news-header-titles">
+                    <h2>News Feed</h2>
+                    <div class="news-meta">
+                        <span id="article-count">0 articles</span>
+                        <span class="meta-separator">&bull;</span>
+                        <span id="last-updated">Updated just now</span>
+                        <span id="debug-badge" style="display: none; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; color: white;"></span>
+                    </div>
+                </div>
+                
+                <div class="news-header-actions">
+                    <div class="search-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="search" id="news-search" placeholder="Search news..." aria-label="Search news">
+                    </div>
+                    <div class="sort-container">
+                        <select id="news-sort" aria-label="Sort news">
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="popular">Popular</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Category Filters -->
+            <nav class="category-filters">
+                <button class="filter-btn active" data-category="All">All</button>
+                <button class="filter-btn" data-category="Technology">Technology</button>
+                <button class="filter-btn" data-category="World">World</button>
+                <button class="filter-btn" data-category="Science">Science</button>
+                <button class="filter-btn" data-category="Business">Business</button>
+                <button class="filter-btn" data-category="Health">Health</button>
+                <button class="filter-btn" data-category="Sports">Sports</button>
+                <button class="filter-btn" data-category="Entertainment">Entertainment</button>
+            </nav>
+
+            <!-- News Grid -->
+            <div id="news-grid" class="news-grid">
+                <!-- Article cards will be injected by news.js and ui.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts linked with defer -->
+    <script type="module" src="./ui.js"></script>
+    <script type="module" src="./news.js"></script>
+    <script type="module" src="./app.js"></script>
+</body>
+</html>
