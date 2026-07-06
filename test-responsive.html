@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherWire - Responsiveness Test</title>
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        /* Inject minimal mock data styles for test */
+        body { background: var(--bg); color: var(--text-primary); }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            </div>
+            <div class="wordmark"><span class="text-white">Weather</span><span class="text-accent">Wire</span></div>
+        </div>
+        <div class="nav-center">
+            <button class="nav-tab active">Dashboard</button>
+            <button class="nav-tab">Weather</button>
+            <button class="nav-tab">News</button>
+        </div>
+        <div class="nav-right">
+            <button class="icon-btn" style="font-weight:700;font-size:13px;">°C</button>
+            <button class="icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+            <button class="icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="app-main">
+        <!-- DASHBOARD -->
+        <div class="dashboard-view-grid">
+            <div class="dashboard-weather-column">
+                <div class="weather-search-container" style="margin-bottom:1.5rem;">
+                    <div class="weather-search-bar-wrapper">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="weather-search-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input class="weather-search-input" placeholder="Search city weather & news..." />
+                    </div>
+                </div>
+                <!-- Hero Card -->
+                <div class="hero-card">
+                    <div class="hero-top-row">
+                        <div class="hero-meta">
+                            <h1 class="hero-location-name">San Francisco <span class="country-pill-badge">US</span></h1>
+                            <span class="hero-date">Monday, Jan 6 • 9:42 AM</span>
+                        </div>
+                        <div class="hero-icon-container">
+                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        </div>
+                    </div>
+                    <div class="hero-center-row">
+                        <div class="hero-temp">18°C</div>
+                        <div class="hero-condition-details">
+                            <span class="hero-condition-text">Partly Cloudy</span>
+                            <span class="hero-feels-like">Feels like 16°C</span>
+                            <span class="hero-high-low">H:22° L:12°</span>
+                        </div>
+                    </div>
+                    <div class="hero-subcards-row">
+                        <div class="hero-glass-subcard">
+                            <span class="hero-subcard-label">💧 Humidity</span>
+                            <span class="hero-subcard-value">72%</span>
+                        </div>
+                        <div class="hero-glass-subcard">
+                            <span class="hero-subcard-label">💨 Wind</span>
+                            <span class="hero-subcard-value">14 km/h</span>
+                        </div>
+                        <div class="hero-glass-subcard">
+                            <span class="hero-subcard-label">👁 Visibility</span>
+                            <span class="hero-subcard-value">10 km</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Air Conditions -->
+                <div class="weather-card air-card" style="margin-top:1rem;">
+                    <h2 class="card-title">Air & Conditions</h2>
+                    <div class="air-grid-row">
+                        <div class="air-subcard">
+                            <div class="air-subcard-icon status-good-bg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/></svg></div>
+                            <span class="air-subcard-value">42</span>
+                            <span class="air-subcard-label">AQI</span>
+                            <span class="air-subcard-desc text-good">GOOD</span>
+                        </div>
+                        <div class="air-subcard">
+                            <div class="air-subcard-icon status-moderate-bg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div>
+                            <span class="air-subcard-value">4</span>
+                            <span class="air-subcard-label">UV Index</span>
+                            <span class="air-subcard-desc text-moderate">MODERATE</span>
+                        </div>
+                        <div class="air-subcard">
+                            <div class="air-subcard-icon status-normal-bg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
+                            <span class="air-subcard-value">1013 hPa</span>
+                            <span class="air-subcard-label">Pressure</span>
+                            <span class="air-subcard-desc text-normal">NORMAL</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Forecast -->
+                <div class="weather-card forecast-card" style="margin-top:1rem;">
+                    <h2 class="card-title">Upcoming Forecast</h2>
+                    <div class="forecast-list-row">
+                        <div class="forecast-day-col active">
+                            <span class="forecast-day-name">Mon</span>
+                            <div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div>
+                            <div class="forecast-temps"><span class="forecast-temp-max">22°</span><span class="forecast-temp-min">12°</span></div>
+                        </div>
+                        <div class="forecast-day-col">
+                            <span class="forecast-day-name">Tue</span>
+                            <div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+                            <div class="forecast-temps"><span class="forecast-temp-max">19°</span><span class="forecast-temp-min">10°</span></div>
+                        </div>
+                        <div class="forecast-day-col">
+                            <span class="forecast-day-name">Wed</span>
+                            <div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div>
+                            <div class="forecast-temps"><span class="forecast-temp-max">24°</span><span class="forecast-temp-min">13°</span></div>
+                        </div>
+                        <div class="forecast-day-col">
+                            <span class="forecast-day-name">Thu</span>
+                            <div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+                            <div class="forecast-temps"><span class="forecast-temp-max">17°</span><span class="forecast-temp-min">9°</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Column -->
+            <div class="dashboard-news-column">
+                <header class="news-header">
+                    <div class="news-header-titles">
+                        <h2>Local & Trending News</h2>
+                        <div class="news-meta"><span>4 articles</span></div>
+                    </div>
+                </header>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="card-image-container">
+                            <img src="https://picsum.photos/400/200?random=1" alt="News 1">
+                            <span class="card-badge badge-technology">Technology</span>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">AI Revolution Continues With New Breakthroughs</h3>
+                            <p class="card-description">Scientists announce major advances in artificial intelligence that could transform how we work and live.</p>
+                            <div class="card-footer">
+                                <div class="card-source-time"><span class="card-source">TechCrunch</span><span>•</span><span class="card-time">2h ago</span></div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="card-image-container">
+                            <img src="https://picsum.photos/400/200?random=2" alt="News 2">
+                            <span class="card-badge badge-world">World</span>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Global Climate Summit Reaches Historic Agreement</h3>
+                            <p class="card-description">World leaders commit to ambitious new carbon reduction targets at landmark climate conference.</p>
+                            <div class="card-footer">
+                                <div class="card-source-time"><span class="card-source">Reuters</span><span>•</span><span class="card-time">4h ago</span></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+
+        <br><hr style="border-color:var(--border);margin:2rem 0"><br>
+
+        <!-- NEWS VIEW -->
+        <header class="news-header">
+            <div class="news-header-titles">
+                <h2>News Feed</h2>
+                <div class="news-meta"><span>12 articles</span><span class="meta-separator">•</span><span>Updated just now</span></div>
+            </div>
+            <div class="news-header-actions">
+                <div class="search-container">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="search" placeholder="Search news...">
+                </div>
+                <div class="sort-container">
+                    <select><option>Newest</option><option>Oldest</option></select>
+                </div>
+            </div>
+        </header>
+
+        <nav class="category-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Technology</button>
+            <button class="filter-btn">World</button>
+            <button class="filter-btn">Science</button>
+            <button class="filter-btn">Business</button>
+            <button class="filter-btn">Health</button>
+            <button class="filter-btn">Sports</button>
+            <button class="filter-btn">Entertainment</button>
+        </nav>
+
+        <div class="news-grid">
+            <article class="news-card"><div class="card-image-container"><img src="https://picsum.photos/400/200?random=3" alt=""><span class="card-badge badge-technology">Technology</span></div><div class="card-content"><h3 class="card-title">Apple Unveils Next-Generation iPhone</h3><p class="card-description">The new iPhone features revolutionary AI capabilities and unprecedented camera improvements.</p><div class="card-footer"><div class="card-source-time"><span class="card-source">9to5Mac</span><span>•</span><span class="card-time">1h ago</span></div></div></div></article>
+            <article class="news-card"><div class="card-image-container"><img src="https://picsum.photos/400/200?random=4" alt=""><span class="card-badge badge-business">Business</span></div><div class="card-content"><h3 class="card-title">Stock Markets Surge To Record Highs</h3><p class="card-description">Global markets rally as investors react positively to strong economic data and earnings reports.</p><div class="card-footer"><div class="card-source-time"><span class="card-source">Bloomberg</span><span>•</span><span class="card-time">3h ago</span></div></div></div></article>
+            <article class="news-card"><div class="card-image-container"><img src="https://picsum.photos/400/200?random=5" alt=""><span class="card-badge badge-science">Science</span></div><div class="card-content"><h3 class="card-title">Scientists Discover New Exoplanet With Signs of Water</h3><p class="card-description">Astronomers have found evidence of water vapor in the atmosphere of a newly discovered exoplanet.</p><div class="card-footer"><div class="card-source-time"><span class="card-source">NASA</span><span>•</span><span class="card-time">6h ago</span></div></div></div></article>
+            <article class="news-card"><div class="card-image-container"><img src="https://picsum.photos/400/200?random=6" alt=""><span class="card-badge badge-health">Health</span></div><div class="card-content"><h3 class="card-title">New Study Links Exercise to Improved Mental Health</h3><p class="card-description">Research confirms that regular physical activity significantly reduces symptoms of anxiety and depression.</p><div class="card-footer"><div class="card-source-time"><span class="card-source">WebMD</span><span>•</span><span class="card-time">8h ago</span></div></div></div></article>
+        </div>
+
+        <br><hr style="border-color:var(--border);margin:2rem 0"><br>
+
+        <!-- WEATHER TAB DETAIL -->
+        <div class="dashboard-grid">
+            <div class="left-column">
+                <div class="weather-card chart-card">
+                    <h2 class="card-title">Today's Temperature</h2>
+                    <div class="chart-wrapper" style="background:var(--color-border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);">Chart renders here</div>
+                </div>
+                <div class="weather-card air-card">
+                    <h2 class="card-title">Air & Conditions</h2>
+                    <div class="air-grid-row">
+                        <div class="air-subcard"><div class="air-subcard-icon status-good-bg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><span class="air-subcard-value">42</span><span class="air-subcard-label">AQI</span><span class="air-subcard-desc text-good">GOOD</span></div>
+                        <div class="air-subcard"><div class="air-subcard-icon status-moderate-bg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div><span class="air-subcard-value">4</span><span class="air-subcard-label">UV Index</span><span class="air-subcard-desc text-moderate">MODERATE</span></div>
+                        <div class="air-subcard"><div class="air-subcard-icon status-normal-bg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><span class="air-subcard-value">1013 hPa</span><span class="air-subcard-label">Pressure</span><span class="air-subcard-desc text-normal">NORMAL</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="weather-card forecast-card">
+                    <h2 class="card-title">7-Day Forecast</h2>
+                    <div class="forecast-list-row">
+                        <div class="forecast-day-col active"><span class="forecast-day-name">Mon</span><div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div><div class="forecast-temps"><span class="forecast-temp-max">22°</span><span class="forecast-temp-min">12°</span></div></div>
+                        <div class="forecast-day-col"><span class="forecast-day-name">Tue</span><div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div><div class="forecast-temps"><span class="forecast-temp-max">19°</span><span class="forecast-temp-min">10°</span></div></div>
+                        <div class="forecast-day-col"><span class="forecast-day-name">Wed</span><div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div><div class="forecast-temps"><span class="forecast-temp-max">24°</span><span class="forecast-temp-min">13°</span></div></div>
+                        <div class="forecast-day-col"><span class="forecast-day-name">Thu</span><div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div><div class="forecast-temps"><span class="forecast-temp-max">17°</span><span class="forecast-temp-min">9°</span></div></div>
+                        <div class="forecast-day-col"><span class="forecast-day-name">Fri</span><div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div><div class="forecast-temps"><span class="forecast-temp-max">26°</span><span class="forecast-temp-min">14°</span></div></div>
+                        <div class="forecast-day-col"><span class="forecast-day-name">Sat</span><div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/></svg></div><div class="forecast-temps"><span class="forecast-temp-max">21°</span><span class="forecast-temp-min">11°</span></div></div>
+                        <div class="forecast-day-col"><span class="forecast-day-name">Sun</span><div class="forecast-day-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div><div class="forecast-temps"><span class="forecast-temp-max">18°</span><span class="forecast-temp-min">9°</span></div></div>
+                    </div>
+                </div>
+                <section class="stats-grid">
+                    <div class="stat-card"><div class="stat-header"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 2c-2-2-4-2-5.5-.5L10 5 1.8 3.2l-.8.8 1.6 8L4 16l8 8 .8-.8L13 15.5l8 1.6.8-.8Z"/></svg><span style="font-size:13px;font-weight:600;color:var(--color-text-secondary)">Wind Speed</span></div><div class="stat-value">14 km/h</div><div class="stat-label-details"><span class="stat-title">SW Direction</span><span class="stat-subtitle">Gusts up to 22 km/h</span></div></div>
+                    <div class="stat-card"><div class="stat-header"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg><span style="font-size:13px;font-weight:600;color:var(--color-text-secondary)">Humidity</span></div><div class="stat-value">72%</div><div class="stat-label-details"><span class="stat-title">High</span><span class="stat-subtitle">Dew point: 12°C</span></div></div>
+                    <div class="stat-card"><div class="stat-header"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg><span style="font-size:13px;font-weight:600;color:var(--color-text-secondary)">Precipitation</span></div><div class="stat-value">0 mm</div><div class="stat-label-details"><span class="stat-title">No rain expected</span><span class="stat-subtitle">Last 24h: 0mm</span></div></div>
+                    <div class="stat-card"><div class="stat-header"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span style="font-size:13px;font-weight:600;color:var(--color-text-secondary)">Visibility</span></div><div class="stat-value">10 km</div><div class="stat-label-details"><span class="stat-title">Clear</span><span class="stat-subtitle">Excellent visibility</span></div></div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
