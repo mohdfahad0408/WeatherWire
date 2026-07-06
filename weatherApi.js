@@ -77,14 +77,20 @@ export async function fetchWeatherData(lat, lon, cityName, countryCode = "US", t
   const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,uv_index&timezone=${tzone}`;
 
   try {
-    // Run fetches concurrently
+    // Run fetches concurrently with response validation
     const [weatherRes, airRes] = await Promise.allSettled([
-      fetch(forecastUrl).then(res => res.json()),
-      fetch(airQualityUrl).then(res => res.json())
+      fetch(forecastUrl).then(res => {
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        return res.json();
+      }),
+      fetch(airQualityUrl).then(res => {
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        return res.json();
+      })
     ]);
 
     if (weatherRes.status === "rejected") {
-      throw new Error("Failed to fetch core weather data: " + weatherRes.reason);
+      throw new Error("Failed to fetch core weather data: " + weatherRes.reason.message);
     }
 
     const weatherData = weatherRes.value;

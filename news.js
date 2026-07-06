@@ -1,11 +1,10 @@
 // News logic
 
-// TODO: Replace with a fresh key before sharing/deploying — treat any key pasted into chat tools as compromised.
-const NEWS_API_KEY = 'cec41ff4a1d38cfead988b5242f55062';
-const BASE_URL = 'https://gnews.io/api/v4/search';
+// Reroute news requests to our server-side proxy
+const BASE_URL = '/api/news';
 
 /**
- * Fetches news from NewsAPI.
+ * Fetches news from the local proxy server.
  * @param {Object} params
  * @param {string} [params.query] - Keyword search
  * @param {string} [params.category] - Category filter
@@ -14,47 +13,39 @@ const BASE_URL = 'https://gnews.io/api/v4/search';
 async function fetchNews({ query = '', category = 'All' }) {
     try {
         const isSearch = query.trim() !== '';
-        const endpoint = isSearch ? 'https://gnews.io/api/v4/search' : 'https://gnews.io/api/v4/top-headlines';
-        const url = new URL(endpoint);
+        const url = new URL('/api/news', window.location.origin);
         
-        url.searchParams.append('apikey', NEWS_API_KEY);
-        url.searchParams.append('lang', 'en');
-        url.searchParams.append('max', '10');
-
         if (isSearch) {
-            url.searchParams.append('q', query.trim());
-        } else {
-            if (category && category !== 'All') {
-                const topicMap = {
-                    'Technology': 'technology',
-                    'World': 'world',
-                    'Science': 'science',
-                    'Business': 'business',
-                    'Health': 'health',
-                    'Sports': 'sports',
-                    'Entertainment': 'entertainment'
-                };
-                const topic = topicMap[category] || 'general';
-                url.searchParams.append('category', topic);
-            }
+            url.searchParams.append('query', query.trim());
+        }
+        if (category && category !== 'All') {
+            url.searchParams.append('category', category);
         }
 
-        if (isSearch) {
-            console.log(`[URL 2: Search] Final URL: ${url.toString()}`);
-        } else {
-            console.log(`[URL 1: Category] Final URL: ${url.toString()}`);
-        }
+        console.log(`[News Proxy Fetch] URL: ${url.toString()}`);
 
         const response = await fetch(url.toString());
         console.log(`[Raw Response] status: ${response.status}`);
 
         if (!response.ok) {
-            if (response.status === 401) {
-                throw new Error('Unauthorized: Please check your API key.');
-            } else if (response.status === 429) {
-                throw new Error('Rate limited: Too many requests to the News API.');
+            let errorMsg = `HTTP Error ${response.status}`;
+            try {
+                const errData = await response.json();
+                if (errData && errData.error) {
+                    errorMsg = errData.error;
+                }
+            } catch (jsonErr) {
+                errorMsg = response.statusText || errorMsg;
             }
-            throw new Error(`Bad response: ${response.status} ${response.statusText}`);
+
+            if (response.status === 401) {
+                throw new Error(`Invalid API key: ${errorMsg}`);
+            } else if (response.status === 429) {
+                throw new Error(`Rate limit exceeded: ${errorMsg}`);
+            } else if (response.status === 403) {
+                throw new Error(`CORS restriction: ${errorMsg}`);
+            }
+            throw new Error(errorMsg);
         }
 
         let data = await response.json();
@@ -74,7 +65,6 @@ async function fetchNews({ query = '', category = 'All' }) {
         if (isSearch && category && category !== 'All') {
             const catLower = category.toLowerCase();
             const filteredArticles = data.articles.filter(article => {
-                // If API returned category, use it. Otherwise, fallback to basic text inclusion.
                 if (article.category) {
                     return article.category.toLowerCase() === catLower;
                 }
@@ -533,25 +523,63 @@ async function getMockNews({ query = '', category = 'All' }) {
     };
 }
 
+const clientNewsCache = new Map();
+const CLIENT_CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache lifetime
+const activeRequests = new Map();
+
 /**
- * Main function to get news. Tries fetchNews first, falls back to getMockNews on failure.
+ * Main function to get news. Tries client-side cache and request pool,
+ * then tries fetchNews (proxy), and falls back to getMockNews on failure.
  * @param {Object} params
  * @param {string} [params.query]
  * @param {string} [params.category]
  * @returns {Promise<Object>}
  */
 async function getNews({ query = '', category = 'All' } = {}) {
-    console.log(`[Flow 4/5] getNews called with: { query: '${query}', category: '${category}' }`);
-    try {
-        const data = await fetchNews({ query, category });
-        console.log(`[Flow 4/5] fetchNews succeeded.`);
-        data._source = 'live';
-        return data;
-    } catch (error) {
-        console.warn(`[Flow 4/5] fetchNews failed (${error.message}). Falling back to mock data.`);
-        const data = await getMockNews({ query, category });
-        data._source = 'mock';
-        return data;
+    const q = (query || '').trim();
+    const cat = (category || 'All').trim();
+    const cacheKey = `${q.toLowerCase()}:${cat.toLowerCase()}`;
+
+    console.log(`[Flow 4/5] getNews called with: { query: '${q}', category: '${cat}' }`);
+
+    // 1. Check client-side cache
+    const cached = clientNewsCache.get(cacheKey);
+    if (cached && (Date.now() - cached.timestamp < CLIENT_CACHE_TTL)) {
+        console.log(`[Client Cache Hit] Returning cached data for key: "${cacheKey}"`);
+        return cached.data;
     }
+
+    // 2. Check in-flight pool to collapse duplicate requests
+    if (activeRequests.has(cacheKey)) {
+        console.log(`[Request Collapsed] Sharing in-flight request for key: "${cacheKey}"`);
+        return activeRequests.get(cacheKey);
+    }
+
+    // 3. Perform fetch
+    const promise = (async () => {
+        try {
+            const data = await fetchNews({ query: q, category: cat });
+            console.log(`[Flow 4/5] fetchNews succeeded.`);
+            data._source = 'live';
+            
+            // Cache successful result
+            clientNewsCache.set(cacheKey, {
+                data,
+                timestamp: Date.now()
+            });
+
+            return data;
+        } catch (error) {
+            console.warn(`[Flow 4/5] fetchNews failed (${error.message}). Falling back to mock data.`);
+            const data = await getMockNews({ query: q, category: cat });
+            data._source = 'mock';
+            return data;
+        } finally {
+            activeRequests.delete(cacheKey);
+        }
+    })();
+
+    activeRequests.set(cacheKey, promise);
+    return promise;
 }
 window.getNews = getNews;
