@@ -1,7 +1,7 @@
 // News logic
 
-// Reroute news requests to our server-side proxy
-const BASE_URL = '/api/news';
+// Reroute news requests to our server-side proxy (configurable for deployments like GitHub Pages)
+const BASE_URL = import.meta.env.VITE_API_URL || '/api/news';
 
 /**
  * Fetches news from the local proxy server.
@@ -13,7 +13,9 @@ const BASE_URL = '/api/news';
 async function fetchNews({ query = '', category = 'All' }) {
     try {
         const isSearch = query.trim() !== '';
-        const url = new URL('/api/news', window.location.origin);
+        const url = BASE_URL.startsWith('http')
+            ? new URL(BASE_URL)
+            : new URL(BASE_URL, window.location.origin);
         
         if (isSearch) {
             url.searchParams.append('query', query.trim());

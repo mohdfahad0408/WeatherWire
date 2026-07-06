@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build && esbuild express-server.js --bundle --platform=node --format=esm --packages=external --outfile=server.js",
+    "build": "vite build",
     "preview": "vite preview",
-    "clean": "rm -rf dist server.js"
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
